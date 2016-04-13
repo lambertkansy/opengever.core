@@ -7,6 +7,7 @@ from opengever.dossier.behaviors.dossier import IDossierMarker, IDossier
 from opengever.globalindex.handlers.task import sync_task
 from opengever.globalindex.handlers.task import TaskSqlSyncer
 from plone import api
+from Products.CMFCore.interfaces import IActionSucceededEvent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getAdapter
 from zope.lifecycleevent import IObjectRemovedEvent
@@ -126,3 +127,10 @@ def purge_reference_number_mappings(copied_dossier, event):
 
     prefix_adapter = IReferenceNumberPrefix(copied_dossier)
     prefix_adapter.purge_mappings()
+
+
+@grok.subscribe(IDossierMarker, IActionSucceededEvent)
+def dossier_state_changed(context, event):
+    if event.action == 'dossier-state-resolved':
+        context.update_retention_expiration()
+        context.reindexObject()
