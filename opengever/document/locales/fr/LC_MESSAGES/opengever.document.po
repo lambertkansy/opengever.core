@@ -183,6 +183,11 @@ msgstr "Il n'est pas possible d'insérer des Email à cet endroit. Pour le faire
 msgid "error_title_or_file_required"
 msgstr "Un titre ou un fichier est requis."
 
+#. Default: "Archive file"
+#: ./opengever/document/behaviors/metadata.py:46
+msgid "fieldset_archive_file"
+msgstr ""
+
 #. Default: "Common"
 #: ./opengever/document/behaviors/metadata.py:39
 #: ./opengever/document/behaviors/related_docs.py:38

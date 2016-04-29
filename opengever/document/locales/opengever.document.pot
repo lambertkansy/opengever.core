@@ -183,6 +183,11 @@ msgstr ""
 msgid "error_title_or_file_required"
 msgstr ""
 
+#. Default: "Archive file"
+#: ./opengever/document/behaviors/metadata.py:46
+msgid "fieldset_archive_file"
+msgstr ""
+
 #. Default: "Common"
 #: ./opengever/document/behaviors/metadata.py:39
 #: ./opengever/document/behaviors/related_docs.py:38
@@ -483,4 +488,3 @@ msgstr ""
 #: ./opengever/document/upgrades/profiles/4000/actions.xml
 msgid "without comment"
 msgstr ""
-

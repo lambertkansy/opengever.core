@@ -183,6 +183,11 @@ msgstr "Es ist nicht erlaubt hier E-Mails anzufügen. Bitte senden Sie das E-Mai
 msgid "error_title_or_file_required"
 msgstr "Ein Titel oder eine Datei muss angegeben werden."
 
+#. Default: "Archive file"
+#: ./opengever/document/behaviors/metadata.py:46
+msgid "fieldset_archive_file"
+msgstr "Archiv Datei"
+
 #. Default: "Common"
 #: ./opengever/document/behaviors/metadata.py:39
 #: ./opengever/document/behaviors/related_docs.py:38
