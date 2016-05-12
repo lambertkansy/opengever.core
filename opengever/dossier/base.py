@@ -8,7 +8,6 @@ from opengever.base.behaviors.lifecycle import ILifeCycle
 from opengever.base.interfaces import IReferenceNumber
 from opengever.base.interfaces import ISequenceNumber
 from opengever.base.oguid import Oguid
-from opengever.base.security import elevated_privileges
 from opengever.contact.models import Participation
 from opengever.contact.participation import ParticipationWrapper
 from opengever.document.behaviors import IBaseDocument
@@ -322,20 +321,6 @@ class DossierContainer(Container):
             return self.get_retention_expiration_date() <= date.today()
 
         return False
-
-    def purge_trash(self):
-        """Delete all trashed documents inside the dossier (recursive).
-        """
-        trashed_docs = api.content.find(
-            context=self,
-            depth=-1,
-            object_provides=[IBaseDocument],
-            trashed=True)
-
-        if trashed_docs:
-            with elevated_privileges():
-                api.content.delete(
-                    objects=[brain.getObject() for brain in trashed_docs])
 
 
 class DefaultConstrainTypeDecider(grok.MultiAdapter):
