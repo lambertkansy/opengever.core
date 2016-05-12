@@ -9,6 +9,10 @@ from opengever.testing import FunctionalTestCase
 from plone import api
 from plone.app.testing import applyProfile
 from plone.protect import createToken
+import transaction
+
+
+TEST_DATE = date(2012, 3, 1)
 
 
 class TestResolvingDossiers(FunctionalTestCase):
@@ -42,6 +46,42 @@ class TestResolvingDossiers(FunctionalTestCase):
         self.assertEquals(subdossier.absolute_url(), browser.url)
         self.assertEquals(['The subdossier has been succesfully resolved'],
                           info_messages())
+
+
+class TestResolveJobs(FunctionalTestCase):
+
+    def setUp(self):
+        super(TestResolveJobs, self).setUp()
+        self.dossier = create(Builder('dossier'))
+        self.grant('Contributor', 'Editor', 'Reader', 'Reviewer')
+        self.catalog = api.portal.get_tool('portal_catalog')
+
+    def test_all_trashed_documents_are_deleted_when_resolving_a_dossier(self):
+        doc1 = create(Builder('document').within(self.dossier))
+        create(Builder('document').within(self.dossier).trashed())
+
+        api.content.transition(obj=self.dossier,
+                               transition='dossier-transition-resolve')
+        transaction.commit()
+
+        docs = self.catalog.unrestrictedSearchResults(
+            path='/'.join(self.dossier.getPhysicalPath()))
+        self.assertEquals([self.dossier, doc1],
+                          [brain.getObject() for brain in docs])
+
+    def test_purge_trashs_recursive(self):
+        subdossier = create(Builder('dossier').within(self.dossier))
+        doc1 = create(Builder('document').within(subdossier))
+        create(Builder('document').within(subdossier).trashed())
+
+        api.content.transition(obj=self.dossier,
+                               transition='dossier-transition-resolve')
+        transaction.commit()
+
+        docs = self.catalog.unrestrictedSearchResults(
+            path='/'.join(self.dossier.getPhysicalPath()))
+        self.assertEquals([self.dossier, subdossier, doc1],
+                          [brain.getObject() for brain in docs])
 
 
 class TestResolvingDossiersWithFilingNumberSupport(FunctionalTestCase):

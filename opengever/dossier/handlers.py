@@ -134,3 +134,11 @@ def dossier_state_changed(context, event):
     if event.action == 'dossier-state-resolved':
         context.update_retention_expiration()
         context.reindexObject()
+
+
+@grok.subscribe(IDossierMarker, IActionSucceededEvent)
+def run_cleanup_jobs(dossier, event):
+    if event.action != 'dossier-transition-resolve':
+        return
+
+    DossierResolver(dossier).after_resolve_jobs()
