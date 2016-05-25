@@ -5,6 +5,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.bumblebee.tests import RequestsSessionMock
 from ftw.bumblebee.tests.helpers import asset as bumblebee_asset
+from ftw.bumblebee.tests.helpers import DOCX_CHECKSUM
 from ftw.bumblebee.tests.helpers import get_queue
 from ftw.bumblebee.tests.helpers import reset_queue
 from ftw.testbrowser import browsing
@@ -19,6 +20,7 @@ from opengever.testing import FunctionalTestCase
 from plone import api
 from plone.app.testing import applyProfile
 from plone.protect import createToken
+from plone.uuid.interfaces import IUUID
 import transaction
 
 
@@ -182,7 +184,8 @@ class TestAutomaticPDFAConversion(FunctionalTestCase):
             self.assertDictContainsSubset(
                 {'callback_url': '{}/archival_file_conversion_callback'.format(
                     doc1.absolute_url()),
-                 'file_url': '{}/bumblebee_download'.format(doc1.absolute_url()),
+                 'file_url': '/bumblebee_download?checksum={}&uuid={}'.format(
+                     DOCX_CHECKSUM, IUUID(doc1)),
                  'target_format': 'pdf/a',
                  'url': '/plone/dossier-1/document-1/bumblebee_trigger_conversion'},
                 get_queue().queue[0])
