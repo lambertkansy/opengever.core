@@ -147,7 +147,6 @@ class TestResolveJobs(FunctionalTestCase):
             'Journal PDF created altough its disabled by registry property.')
 
 
-
 class TestAutomaticPDFAConversion(FunctionalTestCase):
 
     layer = OPENGEVER_FUNCTIONAL_BUMBLEBEE_LAYER
@@ -159,6 +158,9 @@ class TestAutomaticPDFAConversion(FunctionalTestCase):
         self.catalog = api.portal.get_tool('portal_catalog')
 
         reset_queue()
+
+        api.portal.set_registry_record(
+            'journal_pdf_enabled', False, interface=IDossierResolveProperties)
 
     def test_pdf_conversion_job_is_queued_for_every_document(self):
         api.portal.set_registry_record(
@@ -175,6 +177,7 @@ class TestAutomaticPDFAConversion(FunctionalTestCase):
                           bumblebee_asset('example.docx').bytes(),
                           u'example.docx'))
 
+        get_queue().reset()
         with RequestsSessionMock.installed() as session:
             api.content.transition(obj=self.dossier,
                                    transition='dossier-transition-resolve')
@@ -184,7 +187,7 @@ class TestAutomaticPDFAConversion(FunctionalTestCase):
             self.assertDictContainsSubset(
                 {'callback_url': '{}/archival_file_conversion_callback'.format(
                     doc1.absolute_url()),
-                 'file_url': '/bumblebee_download?checksum={}&uuid={}'.format(
+                 'file_url': 'http://nohost/plone/bumblebee_download?checksum={}&uuid={}'.format(
                      DOCX_CHECKSUM, IUUID(doc1)),
                  'target_format': 'pdf/a',
                  'url': '/plone/dossier-1/document-1/bumblebee_trigger_conversion'},
@@ -202,6 +205,7 @@ class TestAutomaticPDFAConversion(FunctionalTestCase):
                           bumblebee_asset('example.docx').bytes(),
                           u'example.docx'))
 
+        get_queue().reset()
         with RequestsSessionMock.installed() as session:
             api.content.transition(obj=self.dossier,
                                    transition='dossier-transition-resolve')
@@ -283,7 +287,6 @@ class TestResolveConditions(FunctionalTestCase):
         create(Builder('document')
                .within(dossier)
                .having(document_date=date(2016, 6, 1)))
-
 
         browser.login().open(dossier,
                              {'_authenticator': createToken()},
