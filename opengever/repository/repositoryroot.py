@@ -38,6 +38,8 @@ class RepositoryRoot(Container, TranslatedTitleMixin):
     """A Repositoryroot.
     """
 
+    _ordering = 'unordered'
+
     Title = TranslatedTitleMixin.Title
 
 

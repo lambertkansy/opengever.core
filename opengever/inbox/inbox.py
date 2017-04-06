@@ -38,6 +38,8 @@ class InboxEditForm(TranslatedTitleEditForm):
 
 class Inbox(Container, TranslatedTitleMixin):
 
+    _ordering = 'unordered'
+
     Title = TranslatedTitleMixin.Title
 
     def get_responsible_org_unit(self):

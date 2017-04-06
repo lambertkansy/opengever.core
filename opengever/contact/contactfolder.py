@@ -22,6 +22,8 @@ class ContactFolder(Container, TranslatedTitleMixin):
 
     implements(IContactFolder)
 
+    _ordering = 'unordered'
+
     Title = TranslatedTitleMixin.Title
 
     def _getOb(self, id_, default=_marker):
