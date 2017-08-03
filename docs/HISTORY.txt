@@ -31,6 +31,7 @@ Changelog
 - Fixed bug in search when sorting on relevance. [phgross]
 - Fix broken remove-condition-checker if backreferences were deleted. [elioschmutz]
 - Fix broken overview-listing if backreferences were deleted. [elioschmutz]
+- Add an additional batching_container for tabbedview-listings at the end of the table. [elioschmutz]
 - Fix encoding error when syncing proposals with SQL. [jone]
 - Remove "Properties"-action on personal overview. [elioschmutz]
 - Ungrok opengever.advancedsearch. [phgross]
