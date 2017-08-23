@@ -89,7 +89,14 @@ class CheckinCheckoutManager(grok.MultiAdapter):
         self.annotations[CHECKIN_CHECKOUT_ANNOTATIONS_KEY] = user_id
 
         # finally, reindex the object
-        self.context.reindexObject()
+        catalog = api.portal.get_tool('portal_catalog')
+        catalog.reindexObject(
+            self.context,
+            idxs=(
+                'checked_out',
+                ),
+            update_metadata=True,
+            )
 
         # fire the event
         notify(ObjectCheckedOutEvent(self.context, ''))
@@ -150,7 +157,14 @@ class CheckinCheckoutManager(grok.MultiAdapter):
         self.repository.save(obj=self.context, comment=comment)
 
         # finally, reindex the object
-        self.context.reindexObject()
+        catalog = api.portal.get_tool('portal_catalog')
+        catalog.reindexObject(
+            self.context,
+            idxs=(
+                'checked_out',
+                ),
+            update_metadata=True,
+            )
 
         # fire the event
         notify(ObjectCheckedInEvent(self.context, comment))
@@ -193,7 +207,14 @@ class CheckinCheckoutManager(grok.MultiAdapter):
         self.annotations[CHECKIN_CHECKOUT_ANNOTATIONS_KEY] = None
 
         # finally, reindex the object
-        self.context.reindexObject()
+        catalog = api.portal.get_tool('portal_catalog')
+        catalog.reindexObject(
+            self.context,
+            idxs=(
+                'checked_out',
+                ),
+            update_metadata=True,
+            )
 
         # Clear any WebDAV locks left over by ExternalEditor if necessary
         self.clear_locks()
