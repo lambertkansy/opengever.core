@@ -102,6 +102,8 @@ def document_author(obj):
         return context.document_author.encode('utf-8')
     else:
         return context.document_author
+
+
 grok.global_adapter(document_author, name='document_author')
 
 
@@ -113,6 +115,8 @@ def document_date(obj):
     if not context.document_date:
         return None
     return context.document_date
+
+
 grok.global_adapter(document_date, name='document_date')
 
 
@@ -121,6 +125,8 @@ def external_reference(obj):
     """Return the foreign reference of a document."""
     context = aq_inner(obj)
     return IDocumentMetadata(context).foreign_reference
+
+
 grok.global_adapter(external_reference, name='external_reference')
 
 
@@ -131,6 +137,8 @@ def receipt_date(obj):
     if not context.receipt_date:
         return None
     return context.receipt_date
+
+
 grok.global_adapter(receipt_date, name='receipt_date')
 
 
@@ -141,6 +149,8 @@ def delivery_date(obj):
     if not context.delivery_date:
         return None
     return context.delivery_date
+
+
 grok.global_adapter(delivery_date, name='delivery_date')
 
 
@@ -158,6 +168,8 @@ def checked_out(obj):
 
     else:
         return ''
+
+
 grok.global_adapter(checked_out, name='checked_out')
 
 
@@ -168,12 +180,16 @@ def sortable_author(obj):
     if author:
         return Actor.user(author).get_label()
     return ''
+
+
 grok.global_adapter(sortable_author, name='sortable_author')
 
 
 @indexer(IDocumentMetadata)
 def DocumentSubjectIndexer(obj):
     return IDocumentMetadata(obj).keywords
+
+
 grok.global_adapter(DocumentSubjectIndexer, name="Subject")
 
 
@@ -184,4 +200,6 @@ def public_trial(obj):
         return public_trial
 
     return ''
+
+
 grok.global_adapter(public_trial, name='public_trial')
