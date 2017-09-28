@@ -61,6 +61,20 @@ class ICommittee(form.Schema):
         required=False,
     )
 
+    protocol_header_template = RelationChoice(
+        title=_('label_protocol_header_template',
+                default='Protocol header template'),
+        source=sablon_template_source,
+        required=False,
+    )
+
+    protocol_suffix_template = RelationChoice(
+        title=_('label_protocol_suffix_template',
+                default='Protocol suffix template'),
+        source=sablon_template_source,
+        required=False,
+    )
+
     excerpt_template = RelationChoice(
         title=_('Excerpt template'),
         source=sablon_template_source,
