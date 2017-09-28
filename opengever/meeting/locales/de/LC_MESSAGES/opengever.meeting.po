@@ -712,16 +712,16 @@ msgstr "Sitzung durchführen"
 msgid "inactive"
 msgstr "Inaktiv"
 
-#. Default: "Ad hoc agenda item template"
-#: ./opengever/meeting/committee.py:94
-#: ./opengever/meeting/committeecontainer.py:44
-msgid "label_ad_hoc_template"
-msgstr "Vorlage"
-
 #. Default: "delete this agenda item"
 #: ./opengever/meeting/browser/meetings/meeting.py:350
 msgid "label_ad_hoc_delete_action"
 msgstr "Traktandum löschen"
+
+#. Default: "Ad hoc agenda item template"
+#: ./opengever/meeting/committee.py:106
+#: ./opengever/meeting/committeecontainer.py:81
+msgid "label_ad_hoc_template"
+msgstr "Vorlage"
 
 #. Default: "Agenda item number"
 #: ./opengever/meeting/browser/meetings/meeting.py:374

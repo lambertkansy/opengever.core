@@ -711,15 +711,15 @@ msgstr ""
 msgid "inactive"
 msgstr ""
 
-#. Default: "Ad hoc agenda item template"
-#: ./opengever/meeting/committee.py:94
-#: ./opengever/meeting/committeecontainer.py:44
-msgid "label_ad_hoc_template"
-msgstr ""
-
 #. Default: "delete this agenda item"
 #: ./opengever/meeting/browser/meetings/meeting.py:350
 msgid "label_ad_hoc_delete_action"
+msgstr ""
+
+#. Default: "Ad hoc agenda item template"
+#: ./opengever/meeting/committee.py:106
+#: ./opengever/meeting/committeecontainer.py:81
+msgid "label_ad_hoc_template"
 msgstr ""
 
 #. Default: "Agenda item number"
