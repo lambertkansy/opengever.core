@@ -196,6 +196,16 @@
               </td>
             </tr>
 
+            <tr tal:condition="meeting/get_other_participants_list">
+              <th i18n:translate="view_label_other_participants">Other participants:</th>
+              <td>
+                <ul>
+                  <li tal:repeat="participant meeting/get_other_participants_list"
+                      tal:content="structure participant"></li>
+                </ul>
+              </td>
+            </tr>
+
           </table>
 
           <table class="meeting-metadata">
