@@ -16,6 +16,7 @@ class DocumentFromOfficeatwork(WizzardWrappedAddForm):
     Then redirects to a view that initiates creation with officeatwork.
 
     """
+
     grok.context(IDossierMarker)
     grok.name('document_from_officeatwork')
 
@@ -72,7 +73,6 @@ class DocumentFromOfficeatwork(WizzardWrappedAddForm):
 
             def initialize_in_shadow_state(self, document):
                 """Force the initial state to be document-state-shadow."""
-
                 document.as_shadow_document()
 
             @buttonAndHandler(pd_mf(u'Cancel'), name='cancel')
